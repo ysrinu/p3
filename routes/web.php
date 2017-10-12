@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'CostController');
+Route::get('/cost', 'CostController@index');
+Route::get('/cost/{shipType}','CostController@result');
