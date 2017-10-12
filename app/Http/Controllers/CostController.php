@@ -8,7 +8,7 @@ class CostController extends Controller
 {
     public function __invoke()
     {
-        return "Show welcome page ...";
+        return view('welcome');
     }
 
     public function index()
