@@ -1,0 +1,51 @@
+/* CSS Rules for the Shipping Cost calculator Form */
+header {
+    color: orange;
+    margin-top: 10px;
+}
+
+.category {
+    font-family: monospace;
+    font-size: large;
+    color: green;
+    font-weight: bold;
+}
+
+legend {
+    color: orange;
+    font-weight: bold;
+}
+
+body {
+    width: 400px;
+    margin: auto;
+}
+
+#submitButton {
+    float: right;
+    color: green;
+    font-family: cursive;
+    font-weight: bold;
+    background-color: lightgrey;
+    border-color: orange;
+    border-width: medium;
+    border-radius: 5%;
+}
+
+.alertdanger {
+    background-color: red;
+    color: white;
+}
+
+.output {
+    background-color: yellow;
+    color: green;
+    font-size: large;
+    font-weight: bold;
+}
+
+footer {
+    background-color: lightyellow;
+    align-content: center;
+    margin-top: 10px
+}

@@ -8,16 +8,16 @@ class CostController extends Controller
 {
     public function __invoke()
     {
-        return view('welcome');
+        return view('cost.welcome');
     }
 
     public function index()
     {
-        return "Show the input form ...";
+        return view('cost.index');
     }
 
     public function result($shipType)
     {
-        return 'You are viewing cost for shipping type: '.$shipType;
+        return view('cost.result')->with(['shipType' => $shipType]);;
     }
 }
