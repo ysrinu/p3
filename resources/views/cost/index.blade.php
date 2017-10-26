@@ -15,7 +15,8 @@
      <fieldset>
          <legend>Customer and Package Information</legend>
          <label for="custName" class="category">Name (Required)</label><br />
-         <input type="text" name="custName" required id="custName" value='{{ $custName }}' placeholder="Enter Customer Name" autofocus="autofocus"/><br />
+         <input type="hidden" name="tempHidden" id="tempHidden" value="XYZ" />
+         <input type="text" name="custName" required id="custName" value='{{ old('custName') }}' placeholder="Enter Customer Name" autofocus="autofocus"/><br />
          @if($errors->get('custName'))
             <ul>
                 @foreach($errors->get('custName') as $error)

@@ -14,12 +14,21 @@ class CostController extends Controller
     public function index(Request $request)
     {
         # Validate the request data
+        dump($request);
+        dump($_GET);
+
+        if ($request->has('tempHidden')) {
+
     $this->validate($request, [
-        'custName' => 'required|alpha',
-        //'shipType' => 'required',
-        //'fromZipCode' => 'required|regex:/\b\d{5}\b/',
-        //'toZipCode' => 'required|regex:/\b\d{5}\b/'
+        'custName' => 'required',
+        'shipType' => 'required',
+        'fromZipCode' => 'required|regex:/\b\d{5}\b/',
+        'toZipCode' => 'required|regex:/\b\d{5}\b/'
     ]);
+}
+
+
+    //dump("after validation and before return view");
 
         $custName = $request->input('custName', null);
         $shipType = $request->input('shipType', null);
@@ -33,7 +42,10 @@ class CostController extends Controller
         'fromZipCode' => $fromZipCode,
         'toZipCode' => $toZipCode
     ]);
-    }
+}
+
+
+
 
     public function result($shipType)
     {
