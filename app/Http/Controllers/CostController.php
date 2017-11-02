@@ -83,6 +83,8 @@ class CostController extends Controller
             $shipType = $request->input('shipType');
             $shipCost = $request->input('shipCost');
 
+            /* This is a placeholder to submit this data to database system */
+
             # Redirect the user to confirm the new shipping added
             return view('cost.result')->with(['shipType' => $shipType,'shipCost' => $shipCost]);
 
