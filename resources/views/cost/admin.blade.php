@@ -27,7 +27,7 @@
             @endif
             <br />
             <label for="shipCost" class="category">Shipping Cost (Required)</label><br />
-            <input type="text" name="shipCost" id="shipType" value='{{ old('shipCost') }}' placeholder="Enter Shipping Cost"/><br />
+            <input type="text" name="shipCost" id="shipCost" value='{{ old('shipCost') }}' placeholder="Enter Shipping Cost"/><br />
             @if($errors->get('shipCost'))
                <ul class='alertdanger'>
                    @foreach($errors->get('shipCost') as $error)

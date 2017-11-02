@@ -6,7 +6,7 @@
 
 @section('content')
 <section>
-    <header><h1>Shipping Cost Calculator</h1></header>
+    <header>Shipping Cost Calculator</header>
     <p>
         Calculate shipping cost between two zip codes.
     </p>
