@@ -14,68 +14,77 @@ class CostController extends Controller
     public function index(Request $request)
     {
         # Validate the request data
-        dump($request);
-        dump($_GET);
-
         if ($request->has('tempHidden')) {
+            $this->validate($request, [
+                'custName' => 'required',
+                'shipType' => 'required',
+                'fromZipCode' => 'required|regex:/\b\d{5}\b/',
+                'toZipCode' => 'required|regex:/\b\d{5}\b/'
+            ]);}
 
-    $this->validate($request, [
-        'custName' => 'required',
-        'shipType' => 'required',
-        'fromZipCode' => 'required|regex:/\b\d{5}\b/',
-        'toZipCode' => 'required|regex:/\b\d{5}\b/'
-    ]);
-}
+            $custName = $request->input('custName', null);
+            $shipType = $request->input('shipType', null);
+            $fromZipCode = $request->input('fromZipCode', null);
+            $toZipCode = $request->input('toZipCode', null);
+            $booksOnly = $request->has('booksOnly');
 
+            // Compute Cost
+            // Ideally the cost calcuation logic belong should belong to it's own class file
 
-    //dump("after validation and before return view");
+            $charge_per_mile=0.25; # charge per shipping mile in $.
+            # based on shipping type, set the surcharge
+            $shipTypeSurcharge=0;
 
-        $custName = $request->input('custName', null);
-        $shipType = $request->input('shipType', null);
-        $fromZipCode = $request->input('fromZipCode', null);
-        $toZipCode = $request->input('toZipCode', null);
+            switch ($shipType) {
+                case "ground":
+                $shipTypeSurcharge=10;
+                break;
+                case "express":
+                $shipTypeSurcharge=50;
+                break;
+                case "overnight":
+                $shipTypeSurcharge=100;
+                break;
+            }
 
-        return view('cost.index')->with([
-        'custName' => $custName,
-        'shipType' => $shipType,
-        'booksOnly' => $request->has('booksOnly'),
-        'fromZipCode' => $fromZipCode,
-        'toZipCode' => $toZipCode
-    ]);
-}
+            # Initialize total cost to zero dolllars
+            $shipCost=0;
 
+            # For the sake of simplicity, we will calculate the distance between two zipcodes as the differene of their numeric zipcodes, miles as the unit
+            # Ideally, we should lookup a web service that will return distance between geogrphical pg_connection_status
+            $dist = ABS( intval($fromZipCode) - intval($toZipCode));
+            $shipCost=($dist * $charge_per_mile) + $shipTypeSurcharge;
 
+            # if book-only, give 10% discount
+            if ($booksOnly==true) $shipCost = $shipCost * 0.90;
 
+            return view('cost.index')->with([
+                'custName' => $custName,
+                'shipType' => $shipType,
+                'booksOnly' => $booksOnly,
+                'fromZipCode' => $fromZipCode,
+                'toZipCode' => $toZipCode,
+                'shipCost' => $shipCost
+            ]);
+        }
 
-    public function result($shipType)
-    {
-        return view('cost.result')->with(['shipType' => $shipType]);;
+        public function admin(Request $request)
+        {
+            return view('cost.admin');
+        }
+
+        public function store(Request $request)
+        {
+            $this->validate($request, [
+                'shipType' => 'required|alpha',
+                'shipCost' => 'required|numeric'
+            ]);
+
+            $shipType = $request->input('shipType');
+            $shipCost = $request->input('shipCost');
+
+            # Redirect the user to confirm the new shipping added
+            return view('cost.result')->with(['shipType' => $shipType,'shipCost' => $shipCost]);
+
+        }
     }
-
-    public function printRequest(Request $request)
-    {
-
-    # ======== Temporary code to explore $request ==========
-
-    # See all the properties and methods available in the $request object
-    dump($request);
-
-    # See just the form data from the $request object
-    dump($request->all());
-
-    # See just the form data for a specific input, in this case a text input
-    dump($request->input('searchTerm'));
-
-    # See what the form data looks like for a checkbox
-    dump($request->input('caseSensitive'));
-
-    # Boolean to see if the request contains data for a particular field
-    dump($request->has('searchTerm')); # Should be true
-    dump($request->has('publishedYear')); # There's no publishedYear input, so this should be false
-
-    # You can get more information about a request than just the data of the form, for example...
-    dump($request->fullUrl());
-    dump($request->method());
-    dump($request->isMethod('post'));
-   }
-}

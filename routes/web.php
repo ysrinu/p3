@@ -13,7 +13,8 @@
 
 Route::get('/', 'CostController');
 Route::get('/cost', 'CostController@index');
-Route::get('/cost/{shipType}','CostController@result');
+Route::get('/ship/admin', 'CostController@admin');
+Route::post('/ship', 'CostController@store');
 Route::get('/env', function () {
     dump(config('app.name'));
     dump(config('app.env'));

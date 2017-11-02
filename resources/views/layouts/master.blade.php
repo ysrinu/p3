@@ -17,6 +17,7 @@
 		<img src='/images/logo.jpg' style='width:50px' alt='Shipping Cost Calculator Logo'>
         <a href="/">Home</a>
         <a href="/cost">Calculate </a>
+		<a href="/ship/admin">Admin </a>
 	</header>
 
 	<section>
