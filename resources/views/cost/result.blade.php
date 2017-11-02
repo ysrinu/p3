@@ -18,7 +18,7 @@
     <p>
         @if($shipType)
             <label class="category">Shipping Type : {{ $shipType}} </label><br />
-            <label class="category">Shipping Cost : {{ $shipCost}} </label>
+            <label class="category">Shipping Cost ($): {{ $shipCost}} </label>
         @else
             No Shipping Type added
         @endif

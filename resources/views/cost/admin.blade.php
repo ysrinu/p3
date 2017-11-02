@@ -16,7 +16,7 @@
 
         <fieldset>
             <legend>Shipping Information</legend>
-            <label for="shipType" class="category">Name (Required)</label><br />
+            <label for="shipType" class="category">Shipping Type (Required)</label><br />
             <input type="text" name="shipType" id="shipType" value='{{ old('shipType') }}' placeholder="Enter Shipping Type" autofocus="autofocus"/><br />
             @if($errors->get('shipType'))
                <ul class='alertdanger'>
@@ -26,7 +26,7 @@
                </ul>
             @endif
             <br />
-            <label for="shipCost" class="category">Name (Required)</label><br />
+            <label for="shipCost" class="category">Shipping Cost (Required)</label><br />
             <input type="text" name="shipCost" id="shipType" value='{{ old('shipCost') }}' placeholder="Enter Shipping Cost"/><br />
             @if($errors->get('shipCost'))
                <ul class='alertdanger'>
